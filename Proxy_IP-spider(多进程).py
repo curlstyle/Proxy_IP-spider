@@ -33,7 +33,7 @@ def test_ip(ipList,portList):
 	opener = urllib.request.build_opener(proxy_handler)
 	urllib.request.install_opener(opener)
 
-	test_url = "https://www.baidu.com/"
+	test_url = "https://www.12306.cn/index/"
 	try:
 
 		req = urllib.request.Request(url=test_url,headers=headers_test)
@@ -43,7 +43,8 @@ def test_ip(ipList,portList):
 			if content:
 				ip_str = str(ipList+":"+portList)
 				print(ip_str +"  可用")
-				ip_list.append(ip_str) 
+				#ip_list.append(ip_str)
+				return ip_str 
 			else:
 				print(ip_str +"  不可用")
 		except Exception as e:
@@ -52,29 +53,28 @@ def test_ip(ipList,portList):
 			if content:
 				ip_str = str(ipList+":"+portList)
 				print(ip_str +"  可用")
-				ip_list.append(ip_str) 
+				#ip_list.append(ip_str)
+				return ip_str 
 			else:
 				print(ip_str +"  不可用")
 	except Exception as e:
 		raise e
 			
 
-
-	return ip_list
 	   
 
 if __name__ == '__main__':
 	(ipList,portList) = get_ip_list(url,headers)
 	#运行pool = ThreadPool(2)有时会出现module '__main__' has no attribute '__spec__'错误  不造如何解决
 	#尝试过 __spec__=None 的方式  没有什么用
-	pool = ThreadPool(2)
+	pool = ThreadPool(4)
 	start_time = time.time()
 	results = pool.map(test_ip,ipList,portList)
 	pool.close()
 	pool.join()
 	end_time = time.time()
 	print("并行耗时："+str(end_time-start_time))
-	#print(results)
+	print(results)
 
 	
 		
