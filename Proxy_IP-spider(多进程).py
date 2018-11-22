@@ -42,7 +42,7 @@ def test_ip(ipList,portList):
 			content = res.read()
 			if content:
 				ip_str = str(ipList+":"+portList)
-				print(ip_str +"  可用")
+				#print(ip_str +"  可用")
 				#ip_list.append(ip_str)
 				return ip_str 
 			else:
@@ -52,7 +52,7 @@ def test_ip(ipList,portList):
 			content = res.read()
 			if content:
 				ip_str = str(ipList+":"+portList)
-				print(ip_str +"  可用")
+				#print(ip_str +"  可用")
 				#ip_list.append(ip_str)
 				return ip_str 
 			else:
@@ -60,10 +60,7 @@ def test_ip(ipList,portList):
 	except Exception as e:
 		raise e
 			
-
-	   
-
-if __name__ == '__main__':
+def finally_ip():
 	(ipList,portList) = get_ip_list(url,headers)
 	#运行pool = ThreadPool(2)有时会出现module '__main__' has no attribute '__spec__'错误  不造如何解决
 	#尝试过 __spec__=None 的方式  没有什么用
@@ -74,7 +71,11 @@ if __name__ == '__main__':
 	pool.join()
 	end_time = time.time()
 	print("并行耗时："+str(end_time-start_time))
-	print(results)
+	return results
+	   
+
+if __name__ == '__main__':
+	print(finally_ip())
 
 	
 		
